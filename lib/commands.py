@@ -20,7 +20,7 @@ from util import *
 from bitcoin import *
 from decimal import Decimal
 import bitcoin
-
+from transaction import Transaction
 
 class Command:
     def __init__(self, name, min_args, max_args, requires_network, requires_wallet, requires_password, description, syntax = '', options_syntax = ''):
@@ -155,7 +155,7 @@ class Commands:
 
     def createmultisig(self, num, pubkeys):
         assert isinstance(pubkeys, list)
-        redeem_script = Transaction.multisig_script(pubkeys, num)
+        redeem_script = transaction.Transaction.multisig_script(pubkeys, num)
         address = hash_160_to_bc_address(hash_160(redeem_script.decode('hex')), 5)
         return {'address':address, 'redeemScript':redeem_script}
     
